@@ -1,20 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ThemeProvider } from '@shopify/restyle';
+import { theme, darkTheme } from './theme/theme';
+import React, {useState} from 'react';
+import {Switch} from 'react-native';
+import Box from './components/atoms/Box';
+import Text from './components/atoms/Text';
 
 export default function App() {
+  const [darkMode, setDarkMode] = useState(false);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider theme={darkMode ? darkTheme : theme}>
+            <Box padding={2} backgroundColor="mainBackground" flex={1}>
+        <Box
+          backgroundColor="border"
+          margin={1}
+          padding={2}
+          flexGrow={1}
+        >
+          <Text variant="Mb" color="text">
+            Primary Card
+          </Text>
+        </Box>
+        <Box
+          backgroundColor="border"
+          margin={1}
+          padding={2}
+          flexGrow={1}
+        >
+          <Text variant="Mb" color="border">
+            Secondary Card
+          </Text>
+        </Box>
+        <Box marginTop={2}>
+          <Switch
+            value={darkMode}
+            onValueChange={(value: boolean) => setDarkMode(value)}
+          />
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
